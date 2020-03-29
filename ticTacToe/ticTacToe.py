@@ -2,12 +2,12 @@ import logging
 import logger.logger
 import random
 from itertools import cycle
-from game.player import Player
 
 
 logger = logging.getLogger('TicTacToe')
 
-class TicTacToe():
+
+class TicTacToe:
     def __init__(self, player1, player2):
         logger.debug('Created TicTacToe instance')
         self.players = [player1, player2]
@@ -39,35 +39,34 @@ class TicTacToe():
         return False
 
     def draw_board(self):
-        logger.debug('Drawig the board')
+        logger.debug('Drawing the board')
         for i in range(1, len(self.moves), 3):
             print('-------------')
             print(f'| {self.moves[i]} | {self.moves[i + 1]} | {self.moves[i + 2]} |')
 
         print('-------------')
 
-
     def is_valid_index(self, index):
         try:
-            isValid = True
+            is_valid = True
 
             if not 0 < index < 10:
                 print('Wrong index!')
-                isValid = False
+                is_valid = False
             else:
                 if not str(self.moves[index]).isnumeric():
                     logger.error('Already set')
                     print('Already set!')
-                    isValid = False
+                    is_valid = False
 
-            return isValid
+            return is_valid
         except Exception as e:
             logger.error(e)
 
     def set_move(self, index, character):
         try:
             self.moves[index] = character
-            logger.debug(f'Successfuly moved to {index} with character {character}')
+            logger.debug(f'Successfully moved to {index} with character {character}')
 
         except Exception as e:
             logger.exception(e)
@@ -89,9 +88,10 @@ class TicTacToe():
         self.fill_board()
         player_ids = cycle([0, 1])
 
-        for _ in range(random.randint(0,1)):
+        for _ in range(random.randint(0, 1)):
             next(player_ids)
 
+        player_id = -1
         while not self.is_board_full() and not self.have_winner():
             self.draw_board()
             player_id = next(player_ids)
@@ -102,6 +102,6 @@ class TicTacToe():
         if self.have_winner():
             winner = self.players[player_id]
             loser = self.players[next(player_ids)]
-            print (f"Player {winner.get_name()} win! {loser.get_name()} don't worry, lucky next time:)")
+            print(f"Player {winner.get_name()} win! {loser.get_name()} don't worry, lucky next time:)")
         else:
             print(f'Draw, lucky next time!')

@@ -3,7 +3,8 @@ import logging
 
 logger = logging.getLogger('TicTacToe')
 
-class Player():
+
+class Player:
     def __init__(self):
         logger.debug(f'Created player instance')
 
@@ -15,6 +16,7 @@ class Player():
     def input_index(self):
         try:
             is_valid = False
+            index = ''
 
             while not is_valid:
                 index = str(input(f"{self.name}, it's your turn, choose index (1-9): "))
@@ -26,7 +28,7 @@ class Player():
                     print('Wrong index, try again')
 
         except Exception as e:
-            logger.error('Wrong index!')
+            logger.error(e)
         finally:
             return int(index)
 
